@@ -1,5 +1,5 @@
 {
-    "name": "lase-peco/laravel-nominatim-geocoder",
+    "name": "lase-peco/geocoder",
     "description": "A small geocoder library for laravel.",
     "type": "library",
     "license": "MIT",

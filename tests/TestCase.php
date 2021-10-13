@@ -5,7 +5,7 @@ namespace LasePeCo\Geocoder\Tests;
 use Illuminate\Foundation\Application;
 use LasePeCo\Geocoder\Facades\Geocoder;
 use LasePeCo\Geocoder\ServiceProvider;
-use PHPUnit\Framework\TestCase as BaseTestCase;
+use \Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {

@@ -2,7 +2,7 @@
 
 namespace LasePeCo\Geocoder;
 
-use \Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -13,7 +13,9 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-       //
+        $this->app->singleton('gecoder', function ($app) {
+            return new Geocoder();
+        });
     }
 
     /**

@@ -11,16 +11,29 @@
     ],
     "autoload": {
         "psr-4": {
-            "LasePeCo\\Geocoder\\" : "src/"
+            "LasePeCo\\Geocoder\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LasePeCo\\Geocoder\\Tests\\" : "tests/"
+            "LasePeCo\\Geocoder\\Tests\\": "tests/"
         }
     },
     "require-dev": {
         "orchestra/testbench": "^6.21",
         "phpunit/phpunit": "^9.5"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LasePeCo\\Geocoder\\ServiceProvider"
+            ],
+            "aliases": {
+                "Geocoder": "LasePeCo\\Geocoder\\Facades\\Geocoder"
+            }
+        }
     }
 }

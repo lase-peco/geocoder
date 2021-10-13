@@ -1,0 +1,26 @@
+{
+    "name": "lase-peco/laravel-nominatim-geocoder",
+    "description": "A small geocoder library for laravel.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmed Dabak",
+            "email": "a.dabak@lase-peco.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LasePeCo\\Geocoder\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LasePeCo\\Geocoder\\Tests\\" : "tests/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.21",
+        "phpunit/phpunit": "^9.5"
+    }
+}

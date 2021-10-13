@@ -41,9 +41,10 @@ class Geocoder
 
         $query = $this->buildQuery();
 
-
         return Cache::remember($query, $three_months = 60 * 60 * 24 * 30 * 3, function () use ($type, $query) {
-            return Http::withoutVerifying()->get($this->baseUrl . $type . '?' . $query)->body();
+            $response = Http::withoutVerifying()->get($this->baseUrl . $type . '?' . $query);
+
+            return $this->parameters['format'] == 'json' ? $response->json() : $response->body();
         });
     }
 
@@ -51,6 +52,7 @@ class Geocoder
     {
         return http_build_query($this->parameters);
     }
+
 
     public function reverse($lat, $long)
     {

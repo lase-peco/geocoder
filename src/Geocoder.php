@@ -44,7 +44,7 @@ class Geocoder
         return Cache::remember($query, $three_months = 60 * 60 * 24 * 30 * 3, function () use ($type, $query) {
             $response = Http::withoutVerifying()->get($this->baseUrl . $type . '?' . $query);
 
-            return $this->parameters['format'] == 'json' ? $response->json() : $response->body();
+            return $this->parameters['format'] == 'json' ? collect($response->object()) : $response->body();
         });
     }
 

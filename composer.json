@@ -24,10 +24,10 @@
         "phpunit/phpunit": "^9.5"
     },
     "require": {
-        "php" : "^8.0",
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.3",
         "illuminate/config": "^8.0",
-        "illuminate/support": "^8.0",
-        "guzzlehttp/guzzle": "^7.3"
+        "illuminate/support": "^8.0"
     },
     "extra": {
         "laravel": {
@@ -38,5 +38,14 @@
                 "Geocoder": "LasePeCo\\Geocoder\\Facades\\Geocoder"
             }
         }
-    }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

@@ -14,15 +14,15 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('geocoder', function ($app) {
-            return new Geocoder(
-                Http::baseUrl(config('geocoder.base_url'))->withoutVerifying()->timeout(5)->retry(2,1)
-            );
-        });
-
         $this->mergeConfigFrom(
             __DIR__ . '/../config/geocoder.php', 'geocoder'
         );
+
+        $this->app->singleton('geocoder', function ($app) {
+            return new Geocoder(
+                Http::baseUrl(config('geocoder.base_url'))->withoutVerifying()->timeout(5)->retry(2, 1)
+            );
+        });
     }
 
     /**
@@ -34,6 +34,6 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/geocoder.php' => config_path('geocoder.php'),
-        ]);
+        ], 'config');
     }
 }

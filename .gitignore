@@ -1,7 +1,7 @@
 build
+coverage
 composer.lock
 docs
 vendor
-coverage
-/.idea
+.idea
 .phpunit.result.cache

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 class Geocoder
 {
     /**
-     * @var array $parameters
+     * @var array
      */
     protected array $parameters = [
         'format' => 'json',
@@ -41,7 +41,6 @@ class Geocoder
         }
 
         $response = Cache::remember($url, config('geocoder.cache_time_in_seconds'), function () use ($url) {
-
             Cache::put('lase-peco-geocoder-rate-limit', true, config('geocoder.rate_limit_in_seconds'));
 
             return $this->client->get($url)->body();
@@ -53,7 +52,6 @@ class Geocoder
 
         return $response;
     }
-
 
     public function reverse($lat, $long)
     {
@@ -67,7 +65,7 @@ class Geocoder
 
     public function language(string $language)
     {
-        if (!is_string($language) || strlen($language) > 2) {
+        if (! is_string($language) || strlen($language) > 2) {
             throw new Exception("Language: {$language} is not supported");
         }
 
@@ -85,7 +83,7 @@ class Geocoder
 
     public function format($format)
     {
-        if (!in_array($format, ['xml', 'json', 'jsonv2', 'geojson', 'geocodejson'])) {
+        if (! in_array($format, ['xml', 'json', 'jsonv2', 'geojson', 'geocodejson'])) {
             throw new Exception("Format: {$format} not supported");
         }
 

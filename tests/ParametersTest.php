@@ -83,7 +83,6 @@ class ParametersTest extends TestCase
         Http::assertSent(function (Request $request) {
             return $request['addressdetails'] == 1;
         });
-
     }
 
     /** @test */

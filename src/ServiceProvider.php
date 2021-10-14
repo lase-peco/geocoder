@@ -15,7 +15,8 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/geocoder.php', 'geocoder'
+            __DIR__ . '/../config/geocoder.php',
+            'geocoder'
         );
 
         $this->app->singleton('geocoder', function ($app) {

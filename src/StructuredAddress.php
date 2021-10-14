@@ -16,7 +16,7 @@ class StructuredAddress
 
     public function __call(string $name, array $arguments)
     {
-        if (!in_array($name, [
+        if (! in_array($name, [
             'street',
             'city',
             'county',

@@ -5,7 +5,7 @@ namespace LasePeCo\Geocoder\Tests;
 use Illuminate\Foundation\Application;
 use LasePeCo\Geocoder\Facades\Geocoder;
 use LasePeCo\Geocoder\ServiceProvider;
-use \Orchestra\Testbench\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
@@ -36,5 +36,4 @@ class TestCase extends BaseTestCase
             'Geocoder' => Geocoder::class,
         ];
     }
-
 }

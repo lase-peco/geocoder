@@ -1,4 +1,4 @@
-name: Code Style
+name: Check & fix styling
 
 on: [push]
 
@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Run PHP CS Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
@@ -16,9 +18,7 @@ jobs:
           args: --config=.php_cs.dist --allow-risky=yes
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Fix styling
           branch: ${{ github.head_ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

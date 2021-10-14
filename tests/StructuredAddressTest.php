@@ -2,9 +2,10 @@
 
 namespace LasePeCo\Geocoder\Tests;
 
+use Exception;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
-use LasePeCo\Geocoder\Geocoder;
+use LasePeCo\Geocoder\Facades\Geocoder;
 use LasePeCo\Geocoder\StructuredAddress;
 
 class StructuredAddressTest extends TestCase
@@ -16,7 +17,7 @@ class StructuredAddressTest extends TestCase
 
         $address->street('Rudolf-Diesel-Str. 115')->city('Wesel')->postalcode('46485')->state('NRW')->country('Germany');
 
-        (new Geocoder())->search($address);
+        Geocoder::search($address);
 
         Http::assertSent(function (Request $request) {
             $this->assertEquals('Rudolf-Diesel-Str. 115', $request['street']);
@@ -27,6 +28,16 @@ class StructuredAddressTest extends TestCase
 
             return true;
         });
+    }
+
+    /** @test */
+    public function it_thows_an_exception_for_unsupported_methods()
+    {
+        $this->expectException(Exception::class);
+
+        $address = new StructuredAddress();
+
+        $address->bundesland('New state');
     }
 
     protected function setUp(): void

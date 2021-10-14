@@ -3,8 +3,9 @@
 namespace LasePeCo\Geocoder;
 
 use Exception;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 
 class Geocoder
 {
@@ -15,62 +16,62 @@ class Geocoder
         'format' => 'json',
     ];
 
-    private string $baseUrl = 'https://nominatim.openstreetmap.org/';
+    /**
+     * @param PendingRequest $client
+     */
+    public function __construct(protected $client)
+    {
+    }
 
     public function search(string|StructuredAddress $address)
     {
-        if (is_string($address)) {
-            $this->parameters['q'] = $address;
-        }
-
         if ($address instanceof StructuredAddress) {
-            $this->parameters += $address->toArray();
+            $query = $address->toArray();
+        } else {
+            $query = ['q' => $address];
         }
 
-        return $this->CallApi('search');
+        return $this->sendRequest('search?' . http_build_query($query + $this->parameters));
     }
 
-    private function CallApi(string $type)
+    protected function sendRequest(string $url)
     {
-        if (!in_array($type, [
-            'search',
-            'reverse'
-        ])) {
-            throw new Exception("Type: {$type} is not supported");
+        if (Cache::has('lase-peco-geocoder-rate-limit')) {
+            throw new Exception('Too many requests');
         }
 
-        $query = $this->buildQuery();
+        $response = Cache::remember($url, config('geocoder.cache_time_in_seconds'), function () use ($url) {
 
-        return Cache::remember($query, $three_months = 60 * 60 * 24 * 30 * 3, function () use ($type, $query) {
-            $response = Http::withoutVerifying()->get($this->baseUrl . $type . '?' . $query);
+            Cache::put('lase-peco-geocoder-rate-limit', true, config('geocoder.rate_limit_in_seconds'));
 
-            return $this->parameters['format'] == 'json' ? collect($response->object()) : $response->body();
+            return $this->client->get($url)->body();
         });
-    }
 
-    protected function buildQuery(): string
-    {
-        return http_build_query($this->parameters);
+        if ($this->parameters['format'] == 'json') {
+            return Collection::make(json_decode($response, false));
+        }
+
+        return $response;
     }
 
 
     public function reverse($lat, $long)
     {
-        $this->parameters += [
-            'lat' => $lat,
-            'lon' => $long,
-        ];
+        $query = http_build_query([
+                'lat' => $lat,
+                'lon' => $long,
+            ] + $this->parameters);
 
-        return $this->CallApi('reverse');
+        return $this->sendRequest('reverse?' . $query);
     }
 
-    public function lang(string $lang)
+    public function language(string $language)
     {
-        if (!is_string($lang) || strlen($lang) > 2) {
-            throw new Exception("Language: {$lang} is not supported");
+        if (!is_string($language) || strlen($language) > 2) {
+            throw new Exception("Language: {$language} is not supported");
         }
 
-        $this->parameters['accept-language'] = strtolower($lang);
+        $this->parameters['accept-language'] = strtolower($language);
 
         return $this;
     }
@@ -100,7 +101,7 @@ class Geocoder
         return $this;
     }
 
-    public function withDetails()
+    public function withAddressDetails()
     {
         $this->parameters['addressdetails'] = 1;
 

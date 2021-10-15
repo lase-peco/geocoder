@@ -18,7 +18,7 @@ Then publish the config file ```geocoder.php``` with the following command:
 ``` bash
 php artisan vendor:publish --provider="LasePeCo\Geocoder\ServiceProvider" --tag="config"
 ```
-The API from nominatim has a request limit of an absolute maximum of 1 request per second. this is defined in th config file, which you can change at your on risk.
+The API from nominatim has a request limit of an absolute maximum of 1 request per second. this is defined in th config file, which you can change at your on risk. you can read about it under [operations.osmfoundation.org/policies](https://operations.osmfoundation.org/policies/nominatim/). 
 
 Also in the config file you can define how long should this library cache the results of your searches. The default is one Month.
 

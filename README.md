@@ -1,4 +1,4 @@
-# laravel-nominatim-geocoder
+# geocoder
 A small geocoder library for laravel.
 
 ## Notes

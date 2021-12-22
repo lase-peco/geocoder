@@ -96,7 +96,7 @@ use LasePeCo\Geocoder\Facades\Geocoder;
 
 Geocoder::reverse('lat', 'lon') 
 ``` 
-It will return the same default jason response which is accessible as a collection.
+It will return the same default json response which is accessible as a collection.
 
 ***
 

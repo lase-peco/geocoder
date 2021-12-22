@@ -1,4 +1,8 @@
 # geocoder
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/lase-peco/geocoder.svg?style=flat-square)](https://packagist.org/packages/lase-peco/geocoder)
+[![Total Downloads](https://img.shields.io/packagist/dt/lase-peco/geocoder.svg?style=flat-square)](https://packagist.org/packages/lase-peco/geocoder)
+
 A small geocoder library for laravel.
 
 ## Notes

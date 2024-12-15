@@ -12,3 +12,4 @@ psalm.xml
 testbench.yaml
 node_modules
 .php-cs-fixer.cache
+.phpunit.cache
